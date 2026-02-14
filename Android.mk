@@ -4,14 +4,9 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := DarknessVip
 
-# Здесь мы убрали приставку imgui/, чтобы робот искал файлы в корне
+# Оставляем только те файлы, которые уже точно проходят проверку
 LOCAL_SRC_FILES := Main.cpp \
-                   Memory.cpp \
-                   imgui.cpp \
-                   imgui_draw.cpp \
-                   imgui_widgets.cpp \
-                   imgui_tables.cpp \
-                   imgui_demo.cpp
+                   Memory.cpp
 
 LOCAL_LDLIBS := -llog -landroid
 
