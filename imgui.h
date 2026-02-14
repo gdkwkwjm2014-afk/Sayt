@@ -13,25 +13,22 @@ typedef unsigned char ImU8;
 typedef short ImWchar16;
 typedef char ImWchar;
 typedef int ImGuiCol;
+typedef int ImGuiStyleVar;
+typedef int ImDrawListFlags;
 
-struct ImVec2 { 
-    float x, y; 
-    ImVec2() { x = y = 0.0f; } 
-    ImVec2(float _x, float _y) { x = _x; y = _y; } 
-};
-
-struct ImVec4 { 
-    float x, y, z, w; 
-    ImVec4() { x = y = z = w = 0.0f; } 
-    ImVec4(float _x, float _y, float _z, float _w) { x = _x; y = _y; z = _z; w = _w; } 
-};
+struct ImVec2 { float x, y; ImVec2() { x = y = 0.0f; } ImVec2(float _x, float _y) { x = _x; y = _y; } };
+struct ImVec4 { float x, y, z, w; ImVec4() { x = y = z = w = 0.0f; } ImVec4(float _x, float _y, float _z, float _w) { x = _x; y = _y; z = _z; w = _w; } };
 
 template<typename T>
 struct ImVector {
     int Size; int Capacity; T* Data;
     ImVector() { Size = Capacity = 0; Data = NULL; }
     void clear() { Size = 0; }
+    void resize(int new_size) { Size = new_size; }
 };
+
+struct ImFont {}; 
+struct ImGuiStyle { ImVec2 WindowPadding; float WindowRounding; ImVec4 Colors[55]; };
 
 namespace ImGui {
     IMGUI_API bool Begin(const char* name, bool* p_open = NULL, int flags = 0);
@@ -41,4 +38,5 @@ namespace ImGui {
     IMGUI_API bool InputText(const char* label, char* buf, size_t buf_size);
     IMGUI_API bool Checkbox(const char* label, bool* v);
     IMGUI_API bool SliderFloat(const char* label, float* v, float v_min, float v_max);
+    IMGUI_API ImGuiStyle& GetStyle();
 }
