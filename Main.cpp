@@ -2,41 +2,45 @@
 #include <jni.h>
 #include <string>
 
+// Состояние меню
 bool is_logged_in = false;
 char input_key[64] = "";
 bool esp_active = false;
 
-void StyleRed() {
+// Красная тема "Darkness VIP"
+void ApplyRedTheme() {
     ImGuiStyle& s = ImGui::GetStyle();
-    s.Colors[2]  = ImVec4(0.10f, 0.00f, 0.00f, 1.00f); // WindowBg
-    s.Colors[21] = ImVec4(0.90f, 0.00f, 0.00f, 1.00f); // Button
-    s.Colors[22] = ImVec4(1.00f, 0.10f, 0.10f, 1.00f); // ButtonHovered
-    s.WindowRounding = 10.0f;
+    s.Colors[2]  = ImVec4(0.12f, 0.00f, 0.00f, 1.00f); // WindowBg
+    s.Colors[21] = ImVec4(0.85f, 0.00f, 0.00f, 1.00f); // Button
+    s.Colors[22] = ImVec4(1.00f, 0.15f, 0.15f, 1.00f); // ButtonHovered
+    s.WindowRounding = 12.0f;
+    s.FrameRounding = 6.0f;
 }
 
-void DrawMenu() {
-    StyleRed();
-    ImGui::Begin("DARKNESS VIP - PUBG");
+void DrawUI() {
+    ApplyRedTheme();
+    ImGui::Begin("DARKNESS VIP - PUBG MOBILE");
 
     if (!is_logged_in) {
-        ImGui::Text("СТАТУС: НУЖЕН КЛЮЧ");
-        ImGui::InputText("Вставить ключ", input_key, 64);
+        ImGui::Text("STATUS: WAITING FOR LICENSE");
+        ImGui::InputText("License Key", input_key, 64);
         
-        if (ImGui::Button("ВХОД")) {
-            if (std::string(input_key).length() > 2) { 
+        if (ImGui::Button("LOGIN")) {
+            if (std::string(input_key).length() > 3) { 
                 is_logged_in = true;
             }
         }
         
-        if (ImGui::Button("КУПИТЬ КЛЮЧ")) {
-            // Тут потом ссылку сделаем
+        if (ImGui::Button("BUY KEY (TG: @ADMIN)")) {
+            // Кнопка покупки
         }
     } else {
-        ImGui::Text("DARKNESS MENU ЧИТ АКТИВЕН");
-        // Убрал Separator, чтобы не было ошибки №24
-        ImGui::Checkbox("ESP LINE (ВХ)", &esp_active);
+        ImGui::Text("WELCOME TO DARKNESS");
+        ImGui::Separator(); // Теперь заработает без ошибок
         
-        if (ImGui::Button("ВЫХОД")) {
+        ImGui::Checkbox("ACTIVATE ESP (WH)", &esp_active);
+        
+        if (ImGui::Button("LOGOUT")) {
             is_logged_in = false;
         }
     }
@@ -46,5 +50,5 @@ void DrawMenu() {
 
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_darkness_vip_MainActivity_stringFromJNI(JNIEnv* env, jobject thiz) {
-    return env->NewStringUTF("Darkness VIP: Success");
+    return env->NewStringUTF("Darkness VIP: Active");
 }
