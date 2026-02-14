@@ -4,9 +4,12 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := DarknessVip
 
-# Оставляем только те файлы, которые уже точно проходят проверку
 LOCAL_SRC_FILES := Main.cpp \
-                   Memory.cpp
+                   Memory.cpp \
+                   imgui.cpp \
+                   imgui_draw.cpp \
+                   imgui_widgets.cpp \
+                   imgui_tables.cpp
 
 LOCAL_LDLIBS := -llog -landroid
 
