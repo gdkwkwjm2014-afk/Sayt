@@ -2,8 +2,8 @@
 #include <jni.h>
 #include <string>
 
-// Состояния меню
-bool is_menu_open = false; // По умолчанию меню закрыто (только лого)
+// Состояние
+bool is_menu_open = false; 
 bool is_logged_in = false;
 char input_key[64] = "";
 bool esp_active = false;
@@ -19,32 +19,29 @@ void StyleRed() {
 void DrawMenu() {
     StyleRed();
 
-    // 1. ЛОГОТИП (Плавающая кнопка)
+    // Простое меню без сложных флагов, которые вызывают ошибки
     if (!is_menu_open) {
-        ImGui::SetNextWindowPos(ImVec2(100, 100), ImGuiCond_FirstUseEver);
-        ImGui::Begin("LOGO", NULL, ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_NoBackground);
-        if (ImGui::Button(" [ D ] ", ImVec2(50, 50))) { // Кнопка-логотип "D"
+        ImGui::Begin("LOGO"); 
+        if (ImGui::Button("OPEN MENU")) { 
             is_menu_open = true;
         }
         ImGui::End();
     }
 
-    // 2. ОСНОВНОЕ МЕНЮ
     if (is_menu_open) {
-        ImGui::Begin("DARKNESS VIP - PUBG", NULL, ImGuiWindowFlags_AlwaysAutoResize);
+        ImGui::Begin("DARKNESS VIP");
 
         if (!is_logged_in) {
-            ImGui::Text("СТАТУС: НУЖЕН КЛЮЧ");
-            ImGui::InputText("Ключ", input_key, 64);
-            if (ImGui::Button("ВХОД")) {
+            ImGui::Text("STATUS: LOGIN NEEDED");
+            ImGui::InputText("Key", input_key, 64);
+            if (ImGui::Button("LOGIN")) {
                 if (std::string(input_key).length() > 2) is_logged_in = true;
             }
         } else {
             ImGui::Text("DARKNESS ACTIVE");
             ImGui::Checkbox("ESP LINE", &esp_active);
             
-            // Кнопка закрытия (свернуть в лого)
-            if (ImGui::Button("СВЕРНУТЬ МЕНЮ")) {
+            if (ImGui::Button("CLOSE MENU")) {
                 is_menu_open = false;
             }
         }
@@ -54,5 +51,5 @@ void DrawMenu() {
 
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_darkness_vip_MainActivity_stringFromJNI(JNIEnv* env, jobject thiz) {
-    return env->NewStringUTF("Darkness VIP: Logo & Menu Ready");
+    return env->NewStringUTF("Darkness VIP: Stable");
 }
