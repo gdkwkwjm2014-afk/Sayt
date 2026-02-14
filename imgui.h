@@ -3,8 +3,10 @@
 #include <stddef.h>
 
 #define IMGUI_API
+typedef unsigned int ImU32;
 typedef unsigned int ImGuiID;
 typedef unsigned long long ImU64;
+typedef short ImWchar16;
 typedef char ImWchar;
 
 struct ImVec2 { 
