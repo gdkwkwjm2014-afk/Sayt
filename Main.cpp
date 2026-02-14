@@ -1,38 +1,32 @@
 #include "imgui.h"
 #include <jni.h>
-#include <string>
 
-bool authorized = false;
-char key_buffer[64] = "";
-bool aimbot = false;
-float aim_dist = 100.0f;
+bool auth = false;
+char license[64] = "";
+bool wallhack = false;
 
-// Тот самый КРАСНЫЙ стиль
-void SetupRedStyle() {
-    // В ImGui это делается через GetStyle(), но для стабильности сборки
-    // мы пропишем логику цветов прямо в отрисовке
+void ApplyRedTheme() {
+    ImGuiStyle& s = ImGui::GetStyle();
+    s.Colors[ImGuiCol_WindowBg] = ImVec4(0.12f, 0.00f, 0.00f, 1.00f);
+    s.Colors[ImGuiCol_Button] = ImVec4(0.80f, 0.00f, 0.00f, 1.00f);
+    s.Colors[ImGuiCol_ButtonHovered] = ImVec4(1.00f, 0.20f, 0.20f, 1.00f);
+    s.WindowRounding = 12.0f;
 }
 
-void RenderMenu() {
-    // Устанавливаем красную тему для окна
-    ImGui::Begin("DARKNESS VIP - RED EDITION");
-    
-    if (!authorized) {
-        ImGui::Text("STATUS: WAITING FOR KEY...");
-        ImGui::InputText("Key", key_buffer, 64);
-        if (ImGui::Button("LOGIN")) {
-            if (std::string(key_buffer) == "DARKNESS-VIP") authorized = true;
-        }
+void DrawUI() {
+    ApplyRedTheme();
+    ImGui::Begin("DARKNESS VIP");
+    if (!auth) {
+        ImGui::InputText("License Key", license, 64);
+        if (ImGui::Button("LOGIN")) { auth = true; }
     } else {
-        ImGui::Text("WELCOME, DEVELOPER!");
-        if (ImGui::Checkbox("Aimbot", &aimbot)) { /* логика */ }
-        ImGui::SliderFloat("Distance", &aim_dist, 10.0f, 500.0f);
+        ImGui::Checkbox("Wallhack", &wallhack);
+        if (ImGui::Button("EXIT")) { auth = false; }
     }
-    
     ImGui::End();
 }
 
 extern "C" JNIEXPORT jstring JNICALL
 Java_com_darkness_vip_MainActivity_stringFromJNI(JNIEnv* env, jobject thiz) {
-    return env->NewStringUTF("Darkness VIP: Red Menu Loaded");
+    return env->NewStringUTF("Darkness VIP Loaded");
 }
