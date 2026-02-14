@@ -4,6 +4,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := DarknessVip
 
+# Только те файлы, которые реально нужны для работы
 LOCAL_SRC_FILES := Main.cpp \
                    Memory.cpp \
                    imgui.cpp \
