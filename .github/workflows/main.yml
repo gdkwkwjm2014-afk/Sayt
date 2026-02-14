@@ -19,5 +19,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Final_Cheat_Lib
-          path: libs/arm64-v8a/libDarknessVip.so
+          path: libs/arm64-v8a/libTDataMaster.so
           
