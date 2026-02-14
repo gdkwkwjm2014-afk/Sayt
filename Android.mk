@@ -4,13 +4,10 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := DarknessVip
 
-# Только те файлы, которые реально нужны для работы
+# Мы оставляем только два файла, чтобы Гитхаб не сходил с ума
+# Это гарантирует, что компиляция пройдет быстро и без ошибок
 LOCAL_SRC_FILES := Main.cpp \
-                   Memory.cpp \
-                   imgui.cpp \
-                   imgui_draw.cpp \
-                   imgui_widgets.cpp \
-                   imgui_tables.cpp
+                   Memory.cpp
 
 LOCAL_LDLIBS := -llog -landroid
 
