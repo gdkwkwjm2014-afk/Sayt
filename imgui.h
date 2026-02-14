@@ -1,20 +1,17 @@
 #pragma once
-
-// Вырезали Windows.h, чтобы не было ошибки
 #include <stdint.h>
 #include <stddef.h>
 
-// Базовые настройки ImGui для мобилок
-#define IMGUI_VERSION "1.89"
-#define IMGUI_CHECKVERSION() (void)0
+#define IMGUI_API
+typedef unsigned int ImGuiID;
+typedef char ImWchar;
+
+struct ImVec2 { float x, y; ImVec2() { x = y = 0.0f; } ImVec2(float _x, float _y) { x = _x; y = _y; } };
+struct ImVec4 { float x, y, z, w; };
 
 namespace ImGui {
-    // Минимум функций для проверки сборки
-    bool Begin(const char* name, bool* p_open = NULL);
-    void End();
-    bool Button(const char* label);
-    void Text(const char* fmt, ...);
+    IMGUI_API bool Begin(const char* name, bool* p_open = NULL, int flags = 0);
+    IMGUI_API void End();
+    IMGUI_API bool Button(const char* label, const ImVec2& size = ImVec2(0, 0));
+    IMGUI_API void Text(const char* fmt, ...);
 }
-
-// Если в твоем проекте есть папка imgui, 
-// убедись что этот файл лежит именно там или в корне
