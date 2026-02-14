@@ -26,11 +26,11 @@ struct ImVec4 {
     ImVec4(float _x, float _y, float _z, float _w) { x = _x; y = _y; z = _z; w = _w; } 
 };
 
-// Добавляем ImVector, который он так просит
 template<typename T>
 struct ImVector {
     int Size; int Capacity; T* Data;
     ImVector() { Size = Capacity = 0; Data = NULL; }
+    void clear() { Size = 0; }
 };
 
 namespace ImGui {
@@ -38,4 +38,7 @@ namespace ImGui {
     IMGUI_API void End();
     IMGUI_API bool Button(const char* label, const ImVec2& size = ImVec2(0, 0));
     IMGUI_API void Text(const char* fmt, ...);
+    IMGUI_API bool InputText(const char* label, char* buf, size_t buf_size);
+    IMGUI_API bool Checkbox(const char* label, bool* v);
+    IMGUI_API bool SliderFloat(const char* label, float* v, float v_min, float v_max);
 }
