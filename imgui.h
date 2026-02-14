@@ -1,3 +1,4 @@
+#define IMGUI_DISABLE_OBSOLETE_FUNCTIONS // Тот самый важный нюанс!
 #pragma once
 #include <stdint.h>
 #include <stddef.h>
@@ -41,5 +42,5 @@ namespace ImGui {
     IMGUI_API bool Checkbox(const char* label, bool* v);
     IMGUI_API bool SliderFloat(const char* label, float* v, float v_min, float v_max);
     IMGUI_API ImGuiStyle& GetStyle();
-    IMGUI_API void Separator(); // Исправление для ошибки №24
+    IMGUI_API void Separator();
 }
